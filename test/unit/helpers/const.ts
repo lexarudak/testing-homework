@@ -1,4 +1,5 @@
-import { ProductShortInfo } from "../../../src/common/types";
+import { CartState, Product, ProductShortInfo } from "../../../src/common/types";
+
 
 export const mockProds: ProductShortInfo[] = [
     {
@@ -17,6 +18,43 @@ export const mockProds: ProductShortInfo[] = [
         "price": 825
     },
 ]
+
+export const mockProd: {[x: number]: Product} = {
+  0: {
+    "id": 0,
+    "name": "Refined Towels",
+    "price": 424,
+    'description': 'Refined Towels disc',
+    'material': 'metal',
+    'color': 'red'
+  },
+  1: {
+    "id": 1,
+    "name": "Gorgeous Keyboard",
+    "price": 210,
+    'description': 'Gorgeous Keyboard disc',
+    'material': 'plastic',
+    'color': 'green'
+  },
+  2: {
+    "id": 2,
+    "name": "Incredible Shirt",
+    "price": 825,
+    'description': 'Incredible Shirt disc',
+    'material': 'wood',
+    'color': 'blue'
+  }
+}
+
+const {name, price} = mockProd[0]
+
+export const CART_STATE_0: CartState = {
+    0: {
+      name: name,
+      price: price,
+      count: 1,
+    },
+  }
 
 export const STATIC_TEXT = {
   MAIN: 'Modi corporis consectetur aliquid sit cum tenetur enim. Sed voluptatum quis voluptates laudantium incidunt laudantium. Illo non quos eos vel ipsa. Explicabo itaque est optio neque rerum provident enim qui sed. Corrupti commodi voluptatem vero soluta hic.',

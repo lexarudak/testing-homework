@@ -1,25 +1,14 @@
 import { BrowserRouter } from "react-router-dom";
 import { CartApi, ExampleApi } from "../../../src/client/api";
 import { initStore } from "../../../src/client/store";
-import { CartState } from "../../../src/common/types";
+import { CartState, ProductShortInfo } from "../../../src/common/types";
 import { Provider } from "react-redux";
 import { Application } from "../../../src/client/Application";
 import React from "react";
-import { mockExampleApi } from "./mock";
+import { getMockCartApi, getMockExampleApi } from "./mock";
 
-export const initStateTest1: CartState = {
-    1: {
-      name: 'test name',
-      price: 4,
-      count: 1,
-    },
-  }
-
-
-export const testApp = (initState = {}) => {
-  const cart = new CartApi();
-  cart.getState = (): CartState => initState;
-  const store = initStore(mockExampleApi, cart);
+export const testApp = (prods: ProductShortInfo[], cartState?: CartState) => {
+  const store = initStore(getMockExampleApi(prods), getMockCartApi(cartState));
   return (
       <BrowserRouter >
           <Provider store={store}>

@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { testApp } from './helpers/testApp';
+import { mockProds } from './helpers/const';
 
 
 describe('Тесты хедера', () => {
@@ -13,7 +14,7 @@ describe('Тесты хедера', () => {
   ]
 
   const testLink = (link_index: number) => {
-    const { getByRole } = render(testApp());
+    const { getByRole } = render(testApp(mockProds));
     const nav = getByRole("navigation");
     const links = nav.querySelectorAll('a') 
     const { innerHTML, href } = links.item(link_index);

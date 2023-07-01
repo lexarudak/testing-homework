@@ -2,13 +2,13 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { testApp } from './helpers/testApp';
 import events from '@testing-library/user-event'
-import { STATIC_TEXT } from './helpers/const';
+import { STATIC_TEXT, mockProds } from './helpers/const';
 
 
 describe('Тесты наличия страниц', () => {
 
   const testPage = async (buttonName: string, mainPage?: string) => {
-    const { getByText, getByRole } = render(testApp());
+    const { getByText, getByRole } = render(testApp(mockProds));
     const btn = getByText(buttonName);
     await events.click(btn)
     // screen.logTestingPlaygroundURL()
@@ -33,7 +33,7 @@ describe('Тесты статического содержания страни�
   // тесты намеренно проверяют лиш часть статической информации на странице, чтобы не падали при изменение любого текста страницы
 
   const testPageContent = async (buttonName: string, content: string) => {
-    const { getByText } = render(testApp());
+    const { getByText } = render(testApp(mockProds));
     const btn = getByText(buttonName);
     await events.click(btn)
     expect(getByText(content)).toBeInTheDocument()
@@ -41,8 +41,8 @@ describe('Тесты статического содержания страни�
 
   const { MAIN, DELIVERY, CONTACTS } = STATIC_TEXT;
 
-    it('Переход на страницу Доставки по клику на хедере', async () => await testPageContent('Delivery', DELIVERY));
-    it('Переход на страницу Контактов по клику на хедере', async () => await testPageContent('Contacts', CONTACTS));
-    it('Переход на Домашнюю страницу по клику на хедере', async () => await testPageContent('Example store', MAIN));
+    it('Наличие статического контенте на странице Доставки', async () => await testPageContent('Delivery', DELIVERY));
+    it('Наличие статического контенте на странице Контактов', async () => await testPageContent('Contacts', CONTACTS));
+    it('Наличие статического контенте на Домашней странице', async () => await testPageContent('Example store', MAIN));
 
 })
