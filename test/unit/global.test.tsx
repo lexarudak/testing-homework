@@ -1,8 +1,9 @@
+import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { testApp } from './helpers/testApp';
 
 
-describe('Общие тесты', () => {
+describe('Тесты хедера', () => {
   const LINKS_LIST = [
     ['Example store', '/'],
     ['Catalog', '/catalog'],
@@ -23,7 +24,7 @@ describe('Общие тесты', () => {
     expect(innerHTML).toBe(name);
   }
 
-    it('В шапке отображается ссылка на домашнюю страницу', () => testLink(0));
+    it('Название магазина в шапке должно быть ссылкой на главную страницу', () => testLink(0));
 
     it('В шапке отображается ссылка на каталог', () => testLink(1));
 
