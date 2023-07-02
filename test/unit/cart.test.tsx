@@ -1,12 +1,12 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { testApp } from './helpers/testApp';
 import events from '@testing-library/user-event'
-import { CART_STATE_0, CART_STATE_0_2, mockProd, mockProds } from './helpers/const';
+import { CART_STATE_0_2, mockProds } from './helpers/const';
 import { getPage } from './helpers/helpers';
-import { createMemoryHistory } from 'history';
+import { LS, clearLS } from './helpers/mock';
 
-describe('Тесты страницы каталога', () => {
+describe('Тесты страницы корзины', () => {
 
   it('В корзине должна быть кнопка "очистить корзину", по нажатию на которую все товары должны удаляться', async () => {
     const { queryByRole, getByRole } = await getPage("Cart (3)", mockProds, CART_STATE_0_2)
@@ -57,7 +57,7 @@ describe('Тесты страницы каталога', () => {
     }
   });
 
-    it('Для каждого товара должны отображаться название, цена, количество , стоимость, а также должна отображаться общая сумма заказа', async () => {
+  it('Для каждого товара должны отображаться название, цена, количество , стоимость, а также должна отображаться общая сумма заказа', async () => {
     const { getByText, getAllByText } = await getPage("Cart (3)", mockProds, CART_STATE_0_2)
 
     let sum = 0;
@@ -68,5 +68,23 @@ describe('Тесты страницы каталога', () => {
     }
     expect(getByText(`$${sum}`)).toBeInTheDocument()
   });
+
+  it('Корзина при добавлении товара сохраняется в Local Storage', async () => {
+    const [good] = mockProds
+    const { getByRole, queryByRole } = render(testApp([good]));
+    clearLS()
+    expect(LS).toEqual('{}')
+
+    await events.click(getByRole('link', {name: "Catalog"}))
+    await events.click(getByRole('link', {name: "Details"}))
+    await events.click(getByRole('button', {name: /add to cart/i}))
+
+    if (queryByRole('link', {name: "Cart (1)"})) {
+      const { name, id, price } = good
+      expect(LS).toEqual(JSON.stringify({[id]: { name, count: 1, price }}))
+      await events.click(getByRole('button', {name: /add to cart/i}))
+      expect(LS).toEqual(JSON.stringify({[id]: { name, count: 2, price }}))
+    }
+  })
 
 })

@@ -1,5 +1,9 @@
 import { CartState, Product, ProductShortInfo } from "../../../src/common/types";
 
+export const VALID_NAME = 'Aliaksei'
+export const VALID_PHONE = '77051500301'
+export const VALID_ADDRESS = 'Minsk Odintsova 29-91'
+
 
 export const mockProds: ProductShortInfo[] = [
     {

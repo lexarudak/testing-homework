@@ -11,7 +11,6 @@ describe('Тесты наличия страниц', () => {
     const { getByText, getByRole } = render(testApp(mockProds));
     const btn = getByText(buttonName);
     await events.click(btn)
-    // screen.logTestingPlaygroundURL()
     if (mainPage) {
       const btnHome = getByText(mainPage);
       await events.click(btnHome)
