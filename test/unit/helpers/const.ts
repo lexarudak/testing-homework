@@ -47,11 +47,31 @@ export const mockProd: {[x: number]: Product} = {
 }
 
 const {name, price} = mockProd[0]
+const {name: name1, price: price1} = mockProd[1]
+const {name: name2, price: price2} = mockProd[2]
 
 export const CART_STATE_0: CartState = {
     0: {
       name: name,
       price: price,
+      count: 1,
+    },
+  }
+
+export const CART_STATE_0_2: CartState = {
+    0: {
+      name: name,
+      price: price,
+      count: 1,
+    },
+    1: {
+      name: name1,
+      price: price1,
+      count: 1,
+    },
+    2: {
+      name: name2,
+      price: price2,
       count: 1,
     },
   }

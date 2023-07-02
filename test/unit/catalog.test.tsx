@@ -3,11 +3,12 @@ import { render, screen } from '@testing-library/react';
 import { testApp } from './helpers/testApp';
 import events from '@testing-library/user-event'
 import { CART_STATE_0, mockProd, mockProds } from './helpers/const';
+import { getPage } from './helpers/helpers';
 
 describe('Тесты страницы каталога', () => {
 
   it('Для каждого товара в каталоге отображается название, цена и ссылка на страницу с подробной информацией о товаре', async () => {
-    const { getAllByRole, queryByText } = await getPage()
+    const { getAllByRole, queryByText } = await getPage("Catalog", mockProds)
     const goodsAndTitle = getAllByRole('heading')
     const goodsAndTitleText = goodsAndTitle.map((val) => val.innerHTML)
     const links = getAllByRole('link', {name: 'Details'}) as HTMLAnchorElement[]
@@ -67,14 +68,8 @@ describe('Тесты страницы каталога', () => {
     expect(queryAllByText(`$${price * 2}`).length).toEqual(2)
   })
 
-  async function getPage() {
-    const page = render(testApp(mockProds));
-    await events.click(page.getByRole('link', {name: "Catalog"}))
-    return page;
-  }
-
   async function checkPage(goodId: number) {
-    const { getAllByRole, getByRole, queryByText } = await getPage()
+    const { getAllByRole, getByRole, queryByText } = await getPage("Catalog", mockProds)
     const links = getAllByRole('link', {name: 'Details'}) as HTMLAnchorElement[]
     const link = links.filter(({href}) => href.includes(`/${goodId}`))[0]
     await events.click(link)
