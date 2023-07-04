@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 const ORIGIN = 'http://localhost:3000/hw/store'
 
-test.describe('Общие тесты', async () => {
+test.describe('Тесты товаров', async () => {
   test('На ширине 576px "бургер" должен скрываться', async ({ page }) => {
     await page.setViewportSize({
       width: 576,
