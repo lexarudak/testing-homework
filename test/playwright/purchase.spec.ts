@@ -18,12 +18,14 @@ test.describe('Тест подтверждения покупки', async () => 
     await address.fill('Minsk')
 
     await (page.getByRole('button', {name: 'Checkout'})).click()
+    const window = page.locator('.Cart-SuccessMessage')
 
-    const screenshot = await page.screenshot({
+    const screenshot = await window.screenshot({
       mask: [
-        page.locator('p'), 
+        window.locator('p'), 
       ],
-      maskColor: 'blue'})
+      maskColor: 'blue',
+    })
 
     expect(screenshot).toMatchSnapshot({
       name: 'pur.png'

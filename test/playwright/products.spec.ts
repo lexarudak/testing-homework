@@ -5,11 +5,10 @@ const ORIGIN = 'http://localhost:3000/hw/store'
 test.describe('Тесты товаров', async () => {
   test('Подробная информация о каждом товаре соответствует сокращенной', async ({ page }) => {
     await page.goto(`${ORIGIN}/catalog`);
-    const initPods = await page.$$('.ProductItem');
 
     let i = 0
 
-    while (i < initPods.length) {
+    while (i < 3) {
       const products = await page.$$('.ProductItem');
       const nameShort = await products[i].$('h5')
       const nameShortText = (await nameShort?.innerText() || '').trim().toLowerCase()
@@ -19,9 +18,9 @@ test.describe('Тесты товаров', async () => {
       const btn = await products[i].$('a')
       await btn?.click()
 
-      const nameFull = await page.$('.ProductDetails-Name')
-      const nameFullText = (await nameFull?.innerText() || '').trim().toLowerCase()
-      const priceFull = await page.$('.ProductDetails-Price')
+      const nameFull = page.locator('.ProductDetails-Name')
+      const nameFullText = (await nameFull.innerText() || '').trim().toLowerCase()
+      const priceFull = page.locator('.ProductDetails-Price')
       const priceFullText = (await priceFull?.innerText() || '').trim().toLowerCase()
 
       expect(nameShortText).toEqual(nameFullText)

@@ -39,7 +39,9 @@ test.describe('Скриншот тесты', async () => {
         page.locator('.ProductDetails-Color'),
         page.locator('.ProductDetails-Material')
       ],
-      maskColor: 'blue'})
+      maskColor: 'blue',
+      fullPage: true
+    })
     expect(screenshot).toMatchSnapshot({
       name: 'prod.png'
     })
